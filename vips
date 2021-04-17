@@ -1,0 +1,13 @@
+pragma solidity ^0.8.0;
+
+contract VIPs {
+    
+    uint256 VIP_License_Price = 15;
+    
+    mapping(address => bool) isVIP;
+    mapping(address => uint256) WorkersHired;
+    mapping(address => bool) hasMintedMid;
+    
+    
+    
+}
