@@ -26,13 +26,13 @@ contract Lending is Return_R0R {
     
     function depositCollateral(address _user, uint256 _amount) internal {
         collateral[_user] = _amount; 
-        transferFrom(_user, owner, collateral[_user]);
+        _transfer(_user, owner, collateral[_user]);
         
         emit CollateralDeposited(_user, _amount);
     }
     
     function repayCollateral(address _user) internal {
-        transferFrom(owner, _user, collateral[_user]);
+        _transfer(owner, _user, collateral[_user]);
         emit CollateralRepaid(_user, collateral[_user]); 
         
     }
@@ -45,7 +45,7 @@ contract Lending is Return_R0R {
         uint256 loanAmount = _amount.mul(5);
         require(loanAmount < balanceOf(owner), "Loan is too large.");
         depositCollateral(user, _amount);
-        transferFrom(owner, msg.sender, loanAmount);
+        _transfer(owner, msg.sender, loanAmount);
         loan[msg.sender] = Loan(loanAmount, _amount, false);
         
         emit LoanCreated(user, _amount);
@@ -55,7 +55,7 @@ contract Lending is Return_R0R {
     function repayLoan() public {
         
         require(balanceOf(msg.sender) > loan[msg.sender].amount, "You need more tokens in order to repay this loan");
-        transferFrom(msg.sender, owner, loan[msg.sender].amount);
+        _transfer(msg.sender, owner, loan[msg.sender].amount);
         repayCollateral(msg.sender);
         
         emit LoanRepaid(msg.sender);
@@ -72,3 +72,4 @@ contract Lending is Return_R0R {
         
     }
     
+}
