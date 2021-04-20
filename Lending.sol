@@ -1,6 +1,6 @@
 pragma solidity ^0.8.0;
 
-import "./erc20sep.sol";
+import "./A-ERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract Lending is Return_R0R {
